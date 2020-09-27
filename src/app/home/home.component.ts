@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Challenge } from '../_models/challenge';
 import { ChallengDataService } from '../_service/challeng-data.service';
 
@@ -13,11 +14,17 @@ export class HomeComponent implements OnInit {
   column:string="challengeName";
   type:Date ;
   constructor(
-    private _challengeServicev : ChallengDataService
+    private _challengeServicev : ChallengDataService,
+    private route : Router,
+     private activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit() {
-  this.dataSource = this._challengeServicev.ChallengeData;
+  this.dataSource =JSON.parse(localStorage.getItem("challenges"));
+  this.activatedRoute.params
+  .subscribe((params : Params)=>{
+    console.log("para",params)
+  })
   }
 
   setSortParams(param){
