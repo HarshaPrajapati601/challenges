@@ -1,0 +1,9 @@
+.mainColumn{
+    margin: 31px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.card-body{
+    min-width: 661px;
+}
