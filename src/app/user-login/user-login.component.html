@@ -1,0 +1,29 @@
+<div class="jumbotron1" *ngIf="message">
+    <div class="col-12 row alertdiv">
+      <div class="col-3">
+        <div *ngIf="message" class="alert-danger">
+         User name or Email is incorrect
+        </div>    
+    </div>
+    </div>
+</div>
+<div class="container-section">
+    <h1>User Login</h1>
+    <form class="container-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <input type="text" placeholder="Enter User Id" formControlName="userId" id="userId" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.userId.errors }">
+        <div *ngIf="submitted && f.userId.errors" class="invalid-feedback">
+            <div *ngIf="f.userId.errors.required">User Id is required</div>                                  
+        </div>  
+        <input type="email" placeholder="Enter Email" formControlName="userEmail" id="userEmail" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.userEmail.errors }">
+        <div *ngIf="submitted && f.userEmail.errors" class="invalid-feedback">
+            <div *ngIf="f.userEmail.errors.required">Email is required</div>                                  
+        </div>  
+        <button type="submit" class="btn btn-info">Login</button>
+        <p>Not a User ?</p><a routerLink="/register">Create new Account</a>
+
+    </form>
+</div>
+
+    
