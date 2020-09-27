@@ -7,9 +7,15 @@
         </span>
        </div>
        <div class="col-4">
-           <p>Sort By Date</p>
-            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up" id="DateAsc">Click Date</i>
-            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up" id="DateDesc">Click   Date down</i>
+           <p>Sort By </p>
+           <div>
+            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="DateAsc"> Date Asc</i>
+            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="DateDesc">Click   Date down</i>
+           </div>
+           <div>
+            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="CountAsc"> Count Asc</i>
+            <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="CountDesc">Count Desc</i>
+           </div>
        </div>
        <div class="col-12 ">
         
@@ -17,9 +23,11 @@
             <div class="card">   
                 <div class="card-body">
                 <h4 class="card-title">{{ele.challengeName}}</h4>
+                <p class="card-text">Date : {{ele.creationDate | date : 'yyyy-MM-dd'}}</p>
                 <p class="card-text">Description : {{ele.description}}</p>
                 <p class="card-text">Tag : {{ele.tag}}</p>
-                <p class="card-text">Date : {{ele.creationDate | date : 'yyyy-MM-dd'}}</p>
+                <p class="card-text">Tag : {{ele.voteCount}}</p>
+           
                 </div>
           </div>
           </div>

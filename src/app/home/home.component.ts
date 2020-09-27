@@ -9,9 +9,7 @@ import { ChallengDataService } from '../_service/challeng-data.service';
 })
 export class HomeComponent implements OnInit {
   dataSource : Challenge[] ;
-  searchTerm:string="";
-  // direction:string="asc";
-  direction : boolean;
+  direction:string="asc";
   column:string="challengeName";
   type:Date ;
   constructor(
