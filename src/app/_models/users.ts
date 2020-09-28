@@ -8,6 +8,5 @@ export class Users{
 export class RegisterUsers{
     public userId : string ;
     public userEmail : string;
-    public  userName : string ;
-    public passWord : string;
+    public password : string;
 }

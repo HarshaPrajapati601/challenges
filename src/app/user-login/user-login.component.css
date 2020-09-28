@@ -32,7 +32,6 @@
     box-sizing: border-box;
     border: 0;
     padding:20px 40px;
-    background:#EDEBE6!important;
     -webkit-text-fill-color: rgba(0, 0, 0, 1); 
     color:#111 !important;
     transition:0.5s;

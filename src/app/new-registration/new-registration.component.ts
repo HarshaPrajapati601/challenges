@@ -22,17 +22,19 @@ export class NewRegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.newUserForm = this.fb.group({
       userId : ['',Validators.required],
-      firstName: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required]
     })
-    this.authservice.userObject.subscribe(val=>{
-      if(val){
-        this.message = true;
-      }else{
-        this.message = true;
+    this.authservice.userObject.subscribe(value=>{
+      if(value == false){
+        this.message =true ;
+      }
+      else{
+        this.message =false ;
+        this.route.navigate(['/userLogin']);
       }
     })
+  
   }
   get f(){
     return this.newUserForm.controls;
@@ -43,7 +45,6 @@ export class NewRegistrationComponent implements OnInit {
       return;
   }
   this.loading = true ;
-  this.authservice.userRegister(this.f.userId.value , this.f.firstName.value, this.f.email.value , this.f.password.value);
-  this.route.navigate(['/userLogin']);
+  this.authservice.userRegister(this.f.userId.value, this.f.email.value , this.f.password.value);
 }
 }
