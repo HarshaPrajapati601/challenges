@@ -1,13 +1,11 @@
-<div class="container">
-    <div class="row " *ngIf="dataSource.length > 0">
-       <div class="col-8">
+<div class="container-fluid">
+    <div class="col-12">
+       <div class="col-12">
         <span class="page-description text-center">
-            <h1 class=""><i class="fa fa-camera-retro " aria-hidden="true"></i> List of Challenges</h1>
-            <p>Ongoing </p>
+            <h3 class="HackaNews"><i class="fa fa-camera-retro " aria-hidden="true"></i> Hack News, Programming Challenges, And Coding Competitions</h3>
         </span>
        </div>
-       <div class="col-4">
-           <p>Sort By </p>
+       <div class="col-4 jumboton sortOrder">
            <div>
             <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="DateAsc"> Date Asc</i>
             <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="DateDesc">Click   Date down</i>
@@ -17,20 +15,45 @@
             <i appSortParams (param)="setSortParams($event)" class="fa fa-arrow-up btn" id="CountDesc">Count Desc</i>
            </div>
        </div>
-       <div class="col-12 ">
-        
-        <div class="col-12  mainColumn ng-star-inserted mainColumn" *ngFor="let ele of dataSource |sortBy:direction:column:type">
-            <div class="card">   
-                <div class="card-body">
-                <h4 class="card-title">{{ele.challengeName}}</h4>
-                <p class="card-text">Date : {{ele.creationDate | date : 'yyyy-MM-dd'}}</p>
-                <p class="card-text">Description : {{ele.description}}</p>
-                <p class="card-text">Tag : {{ele.tag}}</p>
-                <p class="card-text">Tag : {{ele.voteCount}}</p>
-           
+       <div class="well well-sm">Small Well</div>
+        <div class="col-12 row  container-section"> 
+                <div class="col-md-5 col-sm-6 col-lg-4  ng-star-inserted mainColumn" *ngFor="let ele of dataSource |sortBy:direction:column:type">
+                   <div class="card">
+                       <div class="card-img-top">
+                        {{ele.challengeName}}
+                       </div>
+                    <div class="card-body">
+                        <p class="card-title">{{ele.description}}</p>
+                        <p class="card-text"><strong>Created on</strong> : {{ele.creationDate | date : 'yyyy-MM-dd'}}</p>
+                        <p class="card-text">
+                            <strong>Tag: </strong>
+                            <span class="tag">{{ele.tag}}</span>
+                        </p>
+                        <p *ngIf="ele.usersUpVoted">Solving this challenge</p>
+                        <p class="upvotesSolve" *ngFor="let upVoters of ele.usersUpVoted">
+                            {{upVoters}}
+                        </p> 
+                        <div>
+                            <button class="btn btn-primary votes"
+                        [hidden]="currentUserDetails == ele.userId"  (click)="onLikeToggle(ele)">Like</button>
+                        <button class="btn btn-success votes" 
+                        [hidden]="currentUserDetails == ele.userId"  (click)="onDisLikeToggle(ele)"
+                        >Dislike</button>
+                        </div>
+                        <!-- <ng-template #elseBlock>
+                            <button class="btn btn-success votes" 
+                            [hidden]="currentUserDetails == ele.userId" [id]="ele.challengeId" (click)="onDisLikeToggle(ele)"
+                            [ngClass]="{ 'btn-add': isAddButton, 'btn-remove': !isAddButton}">Liked</button>
+                        </ng-template>  -->
+              
+                        <p class="card-text votes">Votes : {{ele.voteCount}}</p>
+                        <p class="card-item text-center">
+                            <button class="btn btn-primary upvote" (click)="upVoteChallenge(ele)" [disabled]="currentUserDetails == ele.userId">
+                                Solve this Challenge
+                            </button>
+                        </p>
+                    </div>
+                   </div>
                 </div>
           </div>
-          </div>
-       </div>
     </div>
-</div>

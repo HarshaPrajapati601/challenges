@@ -5,6 +5,8 @@ export class Challenge{
     public creationDate :any ;
     public challengeId :any ;
     public voteCount : number;
-    // public userId :string ;
+    public usersVoted :any[];
+    public usersUpVoted : any[];
 
 }
+

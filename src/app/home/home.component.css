@@ -1,9 +1,61 @@
-.mainColumn{
+.container-section{
     margin: 31px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 .card-body{
-    min-width: 661px;
+
 }
+.HackaNews{
+    margin-top: 20px;
+    color: #343a40!important;
+}
+.sortOrder{
+    
+}
+.mainColumn{
+    margin-bottom: 32px;
+  
+  }
+  .card:hover{
+    box-shadow: 0px 2px 4px 3px #eee;
+  }
+
+  .card-img-top{
+    padding: 31px;
+    font-size: 21px;
+    text-align: center;
+    font-weight: 800;
+    background-color: lightgray;
+  }
+  .votes{
+       display: inline-block;
+       margin-right: 13px;
+       font-size: 17px;
+       padding-top: 5px;
+  }
+  .upvotesSolve{
+    display: inline-block;
+    margin-right: 5px;
+    background: lightgray;
+    display: inline-block;
+    padding: 5px;
+    margin-right: 5px;
+  }
+
+  .upvote{
+    height: 52px;
+    width: 299px;
+
+  }
+  .card{
+    min-height: 443px;
+    min-width: 341px;
+  }
+  .tag{
+    background: lightgray;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }

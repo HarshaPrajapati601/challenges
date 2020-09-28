@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RegisterUsers, Users } from './_models/users';
 import {map} from 'rxjs/operators'
+import { TotalCount } from './_models/individualChallenge';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,9 @@ export class AuthenticationService {
  private currentUserSubject : BehaviorSubject <Users>;
  public CurrentUser : Observable <Users>;
  usersArray: RegisterUsers[]=[
-   {userId : '1234', userName :'harsha' ,passWord :'1234',userEmail:'harsha@gmail.com'}
+   {userId : '1234',password :'1234',userEmail:'harsha@gmail.com'}
  ];
+ totalCOuntArray : TotalCount[]=[];
   constructor(
     private route : Router,
     private _http : HttpClient
@@ -24,53 +26,49 @@ export class AuthenticationService {
   }
 
   public get CurrentUserValue():Users{
-    console.log("this.currentUserSubject.value ",this.currentUserSubject.value )
     return this.currentUserSubject.value ;
   }
  
+  //Login for user
   userLogin( userId :string , email :string){
     let userObj = {
       userId : userId ,
       userEmail : email
     }
-    //validate if user is already
+    //validate if user is already there in registered users array
     let stored = JSON.parse(localStorage.getItem("register users")) || [];
     stored.find(cur=>{
-    if( cur.userId != userObj.userId || cur.userEmail != userObj.userEmail ){
-      return this.userObject.emit(false);
-    }
-    else{
-    if(userObj){
-        localStorage.setItem('current User', JSON.stringify(userObj))
+      if( cur.userId != userObj.userId || cur.userEmail != userObj.userEmail ){
+        return this.userObject.emit(false);
       }
-    this.currentUserSubject.next(userObj);
-    return this.userObject.emit(true);
-    }
-  })
+      else{
+      if(userObj){
+          localStorage.setItem('current User', JSON.stringify(userObj))
+        }
+      this.currentUserSubject.next(userObj);
+      return this.userObject.emit(true);
+      }
+    })
   }
 
-  userRegister(userId :string ,userName:string, email :string , password : string){
+  //new user creation
+  userRegister(userId :string , email :string , password : string){
     let newUser = {
       userId : userId ,
-      userName : userName,
       userEmail : email,
-      passWord: password
+      password: password
     }
+    const found = this.usersArray.some(el=>el.userId == newUser.userId);
+    //check for duplicate users
+    if(!found) {
       this.usersArray.push(newUser);
-        localStorage.setItem("register users", JSON.stringify(this.usersArray));
-    // this.usersArray.forEach(curr=>{
-    //   if(curr.userId == newUser.userId){
-    //     this.userObject.emit(false);
-    //     return;
-    //   }
-    //   else{
-    //     this.usersArray.push(newUser);
-    //     localStorage.setItem("register users", JSON.stringify(this.usersArray));
-    //   }
-    //})
+      localStorage.setItem("register users", JSON.stringify(this.usersArray));
+      this.userObject.emit(true);
+      return this.usersArray;
+    }else{
+      this.userObject.emit(false);
+    }
 
-
-  
   }
 
   logout(){
