@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm , FormBuilder , Validators, FormGroup} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder , Validators, FormGroup} from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { ChallengDataService } from '../_service/challeng-data.service';
 
@@ -17,13 +17,13 @@ export class ChallengesComponent implements OnInit {
   constructor(
     private fb : FormBuilder,
     private challengeService : ChallengDataService ,
-    private actRout : ActivatedRoute ,
+    private route : Router ,
     private authService : AuthenticationService
   ) { }
 
   ngOnInit() {
     this.challengeFormGroup = this.fb.group({
-      challangeName: ['',[Validators.required , Validators.maxLength(10)]],
+      challangeName: ['',[Validators.required , Validators.maxLength(50)]],
       description:   ['',[Validators.required, Validators.maxLength(500)]],
       tag     :    ['', Validators.required]
      });
@@ -37,7 +37,7 @@ export class ChallengesComponent implements OnInit {
     console.log(this.challengeFormGroup.value);
     this.submitted = true;
     this.challengeService.addChallenges(this.f.challangeName.value , this.f.description.value , this.f.tag.value ,this.userId)
-    
+    // this.route.navigate(['/'])
   }
 
 }

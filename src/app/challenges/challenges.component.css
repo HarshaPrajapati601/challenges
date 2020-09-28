@@ -10,7 +10,11 @@
    font-weight: 800;
 }
 .container{
-    background-color:#EDEBE6
+    background-color:#111;
+    width: 600px;
+    margin-top: 20px;
+
+     
 }
 
 .form-group input ,.form-group select{
@@ -27,8 +31,10 @@ button{
     padding: 10px 20px;
     margin: 24px 1px;
     background-color: #819EA6!important;
+    color: white;
+    font-size: 18px;
 }
 
 .form-group input:hover{
-    color: lightcoral;
+    color: green;
 }

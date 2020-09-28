@@ -1,20 +1,18 @@
 <div class="container">
     <div class="main-section">
-        <form name="form" class="form-horizontal form-section container" [formGroup]="challengeFormGroup" (ngSubmit)="onSubmit()">
-            <h5 class="card-title text-center">New Challenge</h5>
+        <form name="form" class="form-horizontal form-section" [formGroup]="challengeFormGroup" (ngSubmit)="onSubmit()">
+            <h5 class="card-title text-center">Create New Challenge</h5>
             <div class="form-group">
-                <!-- <label class="control-label" for="challangeName">Challenge Name : </label> -->
                 <div>
                     <input type="text" placeholder="Enter challenge name" formControlName="challangeName" id="challangeName" class="form-control"
                     [ngClass]="{ 'is-invalid': submitted && f.challangeName.errors }">
                     <div *ngIf="submitted && f.challangeName.errors" class="invalid-feedback">
                         <div *ngIf="f.userName.errors.required">Challenge name is required</div>
-                        <div *ngIf="f.userName.errors.maxlength">User Name must be within 10 characters</div>                                   
+                        <div *ngIf="f.userName.errors.maxlength">User Name must be within 50 characters</div>                                   
                     </div>
                 </div>                     
             </div>
             <div class="form-group">
-                <!-- <label class="control-label" for="description">Description : </label> -->
                     <div class="">
                         <input type="textarea" placeholder="Enter Description" formControlName="description"  id="description" class="form-control"
                         [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
@@ -35,7 +33,7 @@
                 </div>
             </div>
             <div class="btn-toolbar center">
-                <button type="submit" class="btn" [disabled]="!challengeFormGroup.valid">Submit</button>
+                <button type="submit" class="btn"  [disabled]="!challengeFormGroup.valid">Submit</button>
             </div>
         </form>
     </div>   
