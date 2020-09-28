@@ -11,7 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './alert/alert.component';
 import { SortPipe } from './_pipes/sort-pipe';
 import { SortParamsDirective } from './_pipes/sortParams-directive';
-// import { SharedMaterialModule } from 'shared.module';
+import{ HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { NewRegistrationComponent } from './new-registration/new-registration.component';
 
 @NgModule({
   declarations: [
@@ -22,13 +23,15 @@ import { SortParamsDirective } from './_pipes/sortParams-directive';
     NavbarComponent,
     AlertComponent,
     SortPipe,
-    SortParamsDirective
+    SortParamsDirective,
+    NewRegistrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
 
   ],
   providers: [],
