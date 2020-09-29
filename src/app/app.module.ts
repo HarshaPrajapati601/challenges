@@ -13,6 +13,7 @@ import { SortPipe } from './_pipes/sort-pipe';
 import { SortParamsDirective } from './_pipes/sortParams-directive';
 import{ HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { NewRegistrationComponent } from './new-registration/new-registration.component';
+import { datePipeDirective } from './_pipes/date-pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { NewRegistrationComponent } from './new-registration/new-registration.co
     NavbarComponent,
     AlertComponent,
     SortPipe,
+    datePipeDirective,
     SortParamsDirective,
+    
     NewRegistrationComponent
   ],
   imports: [
