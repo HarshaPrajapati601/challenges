@@ -1,22 +1,26 @@
 .container-section{
-    margin: 31px;
+  margin-top: 53px;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 .card-body{
-
+  min-height: 342px;
 }
 .HackaNews{
     margin-top: 20px;
     color: #343a40!important;
 }
 .sortOrder{
-    
+  text-align: right !important;
 }
 .mainColumn{
     margin-bottom: 32px;
   
+  }
+  .title{
+    text-align: center;
+    margin-top: 38px;
   }
   .card:hover{
     box-shadow: 0px 2px 4px 3px #eee;
@@ -35,6 +39,9 @@
        font-size: 17px;
        padding-top: 5px;
   }
+  label{
+    vertical-align: text-top;
+  }
   .upvotesSolve{
     display: inline-block;
     margin-right: 5px;
@@ -46,7 +53,7 @@
 
   .upvote{
     height: 52px;
-    width: 299px;
+    width: 100%;
 
   }
   .card{
@@ -58,4 +65,29 @@
     display: inline-block;
     padding: 5px 10px;
     margin-bottom: 10px;
+  }
+
+  .img-arrow{
+    width: 19px;
+    height: 16px;
+  }
+  .img-arrow:hover{
+    background: lightgrey;
+  }
+  .cross{
+    display: inline-block;
+    margin-left: 45px;
+    padding-left: 6px;
+    height: 24px;
+    font-weight: 800;
+    width: 24px;
+    border-radius: 50%;
+    border: 1px solid black;
+  }
+  .cross:hover{
+    background-color: lightgray;
+  }
+  .usersChallenging{
+    display: flex;
+    justify-content: right;
   }
