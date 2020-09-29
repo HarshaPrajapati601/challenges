@@ -11,6 +11,7 @@ const routes: Routes = [
   {path:'userLogin' , component:UserLoginComponent },
   {path:'register' , component: NewRegistrationComponent },
   {path:'challenge' , component:ChallengesComponent},
+  {path:'**' , component:UserLoginComponent},
   
 ];
 
