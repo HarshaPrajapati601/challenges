@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable, OnInit, Output } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { db } from './firebase.js';
 import { AuthenticationService } from '../authentication.service';
 import { Challenge } from '../_models/challenge';
 
@@ -14,51 +15,42 @@ export class ChallengDataService  {
     private authService : AuthenticationService) {
       this.currentChallengeSubject = new BehaviorSubject<Challenge>(JSON.parse(localStorage.getItem('challenges')));
       this.CurrentChallenge = this.currentChallengeSubject.asObservable();
-      // localStorage.setItem('challenges', JSON.stringify( this.ChallengeData));
+
      }
   @Output() onChallengesAdded = new EventEmitter<Challenge[]>();
-  ChallengeData : Challenge[]=[
-    {
-      "challengeName":'Ux /Ui Designing',
-      "description":"Create Ui as per the given prototype and follow the instruction and use different themes and layout",
-      "tag":"UI",
-      "creationDate":"2020-09-27",
-      "voteCount":4,
-      "challengeId":1,
-      "usersVoted":["harsha123"],
-      "usersUpVoted":["harsha123"]
-    },
-    {
-      "challengeName":'Ms /Backend Challenge',
-      "description":"Create Ms as per the given prototype and follow the instruction and use different themes and layout",
-      "tag":"Backend",
-      "creationDate":"2020-09-24",
-      "voteCount":2,
-      "challengeId":2,
-      "usersVoted":["harsha123","preeti"],
-      "usersUpVoted":["harsha123"]
-    }
-   
-  ];
+ ChallengeData :Challenge[]= [];
 
   addChallenges(name,desc,tag,userId){
     // array in local storage for registered users
+    this.ChallengeData = JSON.parse(localStorage.getItem('challenges')) || [];
       let obj={
         challengeName : name,       
         description: desc , 
         tag : tag ,
-        creationDate : new Date() , 
+        creationDate : new Date(), 
         challengeId : this.ChallengeData.length + 1, 
         voteCount : 0 ,
         userId : userId ,
         usersVoted :[],
         usersUpVoted :[]
       }
-      this.ChallengeData.push(obj);
-    localStorage.setItem('challenges', JSON.stringify( this.ChallengeData));
 
+  
+      db.collection("challenges").doc(`${obj.challengeId}`).set(obj)
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+      this.ChallengeData.push(obj);
+      localStorage.setItem('challenges', JSON.stringify(this.ChallengeData));
+      
+      return this.ChallengeData;
     //this.onChallengesAdded.emit(this.ChallengeData.slice());
   }
+
+  
   public get CurrentRegistrationValue():Challenge{
     return this.currentChallengeSubject.value ;
   }
