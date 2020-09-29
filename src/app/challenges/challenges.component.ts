@@ -37,7 +37,7 @@ export class ChallengesComponent implements OnInit {
     console.log(this.challengeFormGroup.value);
     this.submitted = true;
     this.challengeService.addChallenges(this.f.challangeName.value , this.f.description.value , this.f.tag.value ,this.userId)
-    // this.route.navigate(['/'])
+    this.route.navigate(['/'])
   }
 
 }
