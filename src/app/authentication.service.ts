@@ -3,8 +3,8 @@ import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RegisterUsers, Users } from './_models/users';
+import { db } from './_service/firebase.js';
 import {map} from 'rxjs/operators'
-import { TotalCount } from './_models/individualChallenge';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,7 @@ export class AuthenticationService {
  private currentUserSubject : BehaviorSubject <Users>;
  public CurrentUser : Observable <Users>;
  usersArray: RegisterUsers[]=[
-   {userId : '1234',password :'1234',userEmail:'harsha@gmail.com'}
  ];
- totalCOuntArray : TotalCount[]=[];
   constructor(
     private route : Router,
     private _http : HttpClient
@@ -36,7 +34,7 @@ export class AuthenticationService {
       userEmail : email
     }
     //validate if user is already there in registered users array
-    let stored = JSON.parse(localStorage.getItem("register users")) || [];
+    let stored = JSON.parse(localStorage.getItem("users")) || [];
     stored.find(cur=>{
       if( cur.userId != userObj.userId || cur.userEmail != userObj.userEmail ){
         return this.userObject.emit(false);
@@ -52,17 +50,25 @@ export class AuthenticationService {
   }
 
   //new user creation
-  userRegister(userId :string , email :string , password : string){
+  userRegister(userId :string , email :string){
     let newUser = {
       userId : userId ,
-      userEmail : email,
-      password: password
+      userEmail : email
     }
     const found = this.usersArray.some(el=>el.userId == newUser.userId);
+    this.usersArray = JSON.parse(localStorage.getItem("users")) || [];
+    this.usersArray.push(newUser);
+    localStorage.setItem("users", JSON.stringify(this.usersArray));
     //check for duplicate users
     if(!found) {
-      this.usersArray.push(newUser);
-      localStorage.setItem("register users", JSON.stringify(this.usersArray));
+      db.collection("users").doc(newUser.userId).set(newUser)
+      .then(function(docRef) {
+        console.log("Document written with ID: ", docRef);
+      })
+      .catch(function(error) {
+        console.error("Error adding document: ", error);
+      });
+
       this.userObject.emit(true);
       return this.usersArray;
     }else{
